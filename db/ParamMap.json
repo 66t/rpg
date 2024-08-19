@@ -1,0 +1,36 @@
+﻿{
+  "Attr_Base_Border": 10001,
+  "Attr_Base_Pure": 10002,
+  "Attr_Base_Clever": 10003,
+  "Attr_Base_Vigor": 10004,
+  "Attr_Base_Entangle": 10005,
+  "Attr_Base_Abstr": 10006,
+  
+  "Attr_Add_Border": 20001,
+  "Attr_Add_Pure": 20002,
+  "Attr_Add_Clever": 20003,
+  "Attr_Add_Vigor": 20004,
+  "Attr_Add_Entangle": 20005,
+  "Attr_Add_Abstr": 20006,
+  
+  "Attr_Extra_Border": 30001,
+  "Attr_Extra_Pure": 30002,
+  "Attr_Extra_Clever": 30003,
+  "Attr_Extra_Vigor": 30004,
+  "Attr_Extra_Entangle": 30005,
+  "Attr_Extra_Abstr": 30006,
+  
+  "Attr_Rate_Border": 40001,
+  "Attr_Rate_Pure": 40002,
+  "Attr_Rate_Clever": 40003,
+  "Attr_Rate_Vigor": 40004,
+  "Attr_Rate_Entangle": 40005,
+  "Attr_Rate_Abstr": 40006,
+  
+  "Attr_Ampl_Border": 50001,
+  "Attr_Ampl_Pure": 50002,
+  "Attr_Ampl_Clever": 50003,
+  "Attr_Ampl_Vigor": 50004,
+  "Attr_Ampl_Entangle": 50005,
+  "Attr_Ampl_Abstr": 50006
+}

@@ -1,0 +1,226 @@
+﻿@startuml
+'https://plantuml.com/object-diagram
+
+map 物品 {
+资源=>Resources
+材料=>Materials
+加工品=>Processed
+造物=>Aritifact
+}
+
+map 资源 {
+矿物=>Minerals
+生物质=>Biomass
+}
+map 材料 {
+能源=>Energy
+云=>Cloud
+晶体=>Crystals
+泡沫=>Foam
+宝石=>Gems
+食材=>Ingredients
+废料=>Waste
+}
+map 加工品 {
+日用品=>Goods
+食品=>Food
+零件=>Components
+工具=>Tools
+}
+map 造物 {
+设备=>Devices
+晶体管=>Transistor
+机械=>Machinery
+仪器=>Instruments
+}
+
+物品::资源 -up-> 资源
+物品::材料 -right-> 材料
+物品::加工品 -left-> 加工品
+物品::造物 --> 造物
+
+map 矿物 {
+核=>Core
+元=>Meta
+源=>Form
+模=>Model
+}
+map 生物质 {
+元胞=>Cell
+自在体=>Self
+混沌=>Chaos
+像素=>Pixel
+迷因=>Meme
+}
+资源::矿物 -right-> 矿物
+资源::生物质 -left-> 生物质
+
+map 元胞 {
+块=>Block
+蜂巢=>Hive 
+双极子=>Bipole
+巨口=>Eater
+脉冲=>Pulsar
+时钟=>Clock
+滑翔机=>Glider
+蚂蚁=>Ant 
+橡子=>Acorn
+蛇=>Snake
+}
+map 自在体 {
+雪花=>Snow 
+海绵=>Sponge
+线虫=>Nematode
+蕨=>Fern
+刺胞=>Cnidaria 
+曼德博球=>Mandelbulb 
+}
+map 混沌 {
+吸引子=>Attractor 
+蝴蝶=>Butterfly 
+富文本=>Rich Text
+混沌之种=>Chaos Seed 
+噪点=>Noise
+纠缠=>Entangled
+}
+map 像素 {
+瓦片=>Tile
+图元=>Graphic Elements 
+连接网=>Web 
+胶带=>Tape
+标识键=>Key
+针头=>Needle
+补丁=>Patch
+}
+map 迷因 {
+音符=>Note
+猫因子=>CatMeme
+三体=>Three-Body
+}
+生物质::元胞 -up-> 元胞
+生物质::自在体 -up--> 自在体
+生物质::混沌 -left-> 混沌
+生物质::像素 --> 像素
+生物质::迷因 ---> 迷因
+
+map 核 {
+燃石球=>Ignite Sphere
+雾霭球=>Mistorb
+液态火=>Liquid Fire
+蓝燃石=>Azufire
+水矿=>Hydroxite
+艾米特=>Emythite
+以瑟莱斯=>Etherex
+螺线冰=>Spiraline
+}
+map 元 {
+环素=>Mobius 
+浮粒=>Drifteonite
+光玻=>Lumiglass
+磁引丝=>Magnet Weave
+金絮=>Aurific-silken
+芳香锦=>Aromasilk
+冰锦=>Cryosilk 
+}
+map 源 {
+源核=>Corenium
+彩虹尘=>Rainbodium
+琉璃沫=>Vitreglycerol
+黑脂=>Black Resin 
+雪糕泥=>Iceslush Mud
+太阳露=>Solar Dewdrops
+乳砂=>Microsands Emulsion 
+热液泡沫=>Hydrothermal Foam
+}
+map 模 {
+晶石=>Gem
+准石=>Quasistone 
+热岩石=>Hermal Rocks
+艾因石=>Aeinstone 
+阿尔奇石=>Argetite 
+均衡石=>Equilithe
+星辰石=>Stellarite
+}
+
+矿物::核 -up-> 核
+矿物::元 -right-> 元
+矿物::源 --> 源
+矿物::模 --> 模
+
+
+map 能源 {
+离子岩=>分拣燃石球 热岩石
+沉积碳=>分拣蓝燃石 液态火
+阳极晶=>分拣太阳露 星辰石
+晶格簇=>分拣燃石球 雪花
+催化物=>分拣环素 脉冲
+电子链=>分拣线虫 针头
+动矩体=>分拣脉冲 橡子
+}
+map 云 {
+共振云=>分拣 螺旋冰 冰棉
+平衡云=>分拣 芳香棉 冰棉
+辐能云=>分拣 星辰石 艾米特
+压缩云=>分拣 金絮 均衡石
+激元云=>分拣 滑翔机 芳香棉
+衰变云=>分拣 纠缠 磁引丝
+畸变云=>分拣 噪点 黑脂
+} 
+map 晶体 {
+交织晶=>分拣 
+梯度晶=>分拣
+斜方晶=>分拣
+偏移晶=>分拣
+三相晶=>分拣
+菱格晶=>分拣
+六轴晶=>分拣
+} 
+map 泡沫{
+微织结=>
+稳定弹子=>
+叠层聚泡=>
+脉交晶膜=>
+弹性团=>
+抗力涡环=>
+并构强纤=>
+} 
+
+map 宝石{
+银影箔=> 分拣 艾因石 滑翔机
+光泽箔=> 分拣 瓦片 热岩石
+幻影箔=> 分拣 雾霭球 蝴蝶
+闪烁箔=> 分拣 时钟 准石
+炫彩箔=> 分拣 富文本 彩虹尘
+镭射箔=> 分拣 均衡石 图元 
+彩斑箔=> 分拣 蝴蝶 阿尔奇石
+} 
+map 食材{
+香草=>
+奶油=>
+砂糖=>
+果胶=>
+可可=>
+蛋白=>
+面粉=>
+} 
+
+map 废料{
+腐化元=>
+污染态=>
+生化基质=>
+干扰突触=>
+不稳定因子=>
+放射性废料=>
+异态残片=>
+} 
+
+
+材料::能源 -up-> 能源
+材料::云 -up-> 云
+材料::晶体 -up-> 晶体
+材料::泡沫 -right-> 泡沫
+材料::宝石 -right-> 宝石
+材料::食材 --> 食材
+@enduml
+
+

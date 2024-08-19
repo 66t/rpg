@@ -1,0 +1,47 @@
+﻿<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/js/load.js" />
+        <item url="file://$PROJECT_DIR$/js/module/01-core/00-util.js" />
+        <item url="file://$PROJECT_DIR$/js/module/01-core/01-world.js" />
+        <item url="file://$PROJECT_DIR$/js/module/01-core/02-stage.js" />
+        <item url="file://$PROJECT_DIR$/js/module/01-core/03-manager.js" />
+        <item url="file://$PROJECT_DIR$/js/module/02-storage/01-main.js" />
+        <item url="file://$PROJECT_DIR$/js/module/02-storage/02-save.js" />
+        <item url="file://$PROJECT_DIR$/js/module/02-storage/03-boolean.js" />
+        <item url="file://$PROJECT_DIR$/js/module/02-storage/04-number.js" />
+        <item url="file://$PROJECT_DIR$/js/module/02-storage/05-data.js" />
+        <item url="file://$PROJECT_DIR$/js/module/03-pattern/01-weaver.js" />
+        <item url="file://$PROJECT_DIR$/js/module/03-pattern/02-cotton.js" />
+        <item url="file://$PROJECT_DIR$/js/module/03-pattern/03-runflow.js" />
+        <item url="file://$PROJECT_DIR$/js/module/03-pattern/04-adorn.js" />
+        <item url="file://$PROJECT_DIR$/js/module/03-pattern/05-handler.js" />
+        <item url="file://$PROJECT_DIR$/js/module/05-input/01-keyboard.js" />
+        <item url="file://$PROJECT_DIR$/js/module/05-input/02-touch.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/js/load.js" />
+      <root url="file://$PROJECT_DIR$/js/module/01-core/00-util.js" />
+      <root url="file://$PROJECT_DIR$/js/module/01-core/01-world.js" />
+      <root url="file://$PROJECT_DIR$/js/module/01-core/02-stage.js" />
+      <root url="file://$PROJECT_DIR$/js/module/01-core/03-manager.js" />
+      <root url="file://$PROJECT_DIR$/js/module/02-storage/01-main.js" />
+      <root url="file://$PROJECT_DIR$/js/module/02-storage/02-save.js" />
+      <root url="file://$PROJECT_DIR$/js/module/02-storage/03-boolean.js" />
+      <root url="file://$PROJECT_DIR$/js/module/02-storage/04-number.js" />
+      <root url="file://$PROJECT_DIR$/js/module/02-storage/05-data.js" />
+      <root url="file://$PROJECT_DIR$/js/module/03-pattern/01-weaver.js" />
+      <root url="file://$PROJECT_DIR$/js/module/03-pattern/02-Cotton.js" />
+      <root url="file://$PROJECT_DIR$/js/module/03-pattern/03-runflow.js" />
+      <root url="file://$PROJECT_DIR$/js/module/03-pattern/04-adorn.js" />
+      <root url="file://$PROJECT_DIR$/js/module/03-pattern/05-handler.js" />
+      <root url="file://$PROJECT_DIR$/js/module/04-audio/01-Conductor.js" />
+      <root url="file://$PROJECT_DIR$/js/module/05-input/01-keyboard.js" />
+      <root url="file://$PROJECT_DIR$/js/module/05-input/02-touch.js" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

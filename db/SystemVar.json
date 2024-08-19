@@ -1,0 +1,24 @@
+﻿{
+  "proficToTalent":[
+  {"val": 20,"thld": 133},
+  {"val": 19,"thld": 99},
+  {"val": 18,"thld": 78},
+  {"val": 17,"thld": 65},
+  {"val": 16,"thld": 52},
+  {"val": 15,"thld": 44},
+  {"val": 14,"thld": 36},
+  {"val": 13,"thld": 31},
+  {"val": 12,"thld": 26},
+  {"val": 11,"thld": 21},
+  {"val": 10,"thld": 18},
+  {"val": 9, "thld": 15},
+  {"val": 8, "thld": 12},
+  {"val": 7, "thld": 10},
+  {"val": 6, "thld": 8},
+  {"val": 5, "thld": 6},
+  {"val": 4, "thld": 4},
+  {"val": 3, "thld": 3},
+  {"val": 2, "thld": 2},
+  {"val": 1, "thld": 1}
+]
+}

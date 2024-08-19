@@ -1,0 +1,92 @@
+﻿
+
+@startuml
+'https://plantuml.com/object-diagram
+
+map 技艺craft {
+变化 => Changes
+咒法 => Summon
+预言 => Prophecy
+调和 => Balance
+死灵 => Necro
+塑能 => Evocation
+惑控 => Illusion
+防护 => Abjuration
+非法 => Illegal
+}
+
+map 变化 {
+转变 => Transform
+异化 => Mutagenic
+炼成 => Bonding
+相变 => Transition
+变身 => Shapeshift
+}
+map 咒法 {
+咒令 => Relocate
+具现 => Recall
+创造 => Creation
+祈求 => Invoked
+传送 => Teleport
+}
+map 调和 {
+平衡 => Taiji
+共鸣 => Zen
+化气 => Awake
+地卜 => Geomancy
+奇门 => Kimon
+}
+map 死灵 {
+邪秽 => Unclean
+疫病 => Plague
+积怨 => Curse
+凭依 => Haunt
+献祭 => Vanish
+}
+map 非法 {
+计算 => Calc
+定位 => Locate
+伪装 => Dissimilate
+渗透 => Penetrate
+革新 => Disruptor
+}
+map 预言 {
+观察 => Observe
+揭示 => Reveal
+因果 => Karma
+先兆 => Omen
+言灵 => Utter
+}
+
+map 塑能 {
+聚合 => Aggregation
+扩散 => Diffusion
+环绕 => Surround
+脉冲 => Pulse
+传导 => Conduction
+}
+map 惑控 {
+心灵 => Mind
+操控 => Control
+同步 => Synchro
+暗示 => Suggest
+幻象 => Phantasm
+}
+map 防护 {
+力场 => Field
+剥离 => Detach
+瓦解 => Crumble
+干扰 => Interfere
+抵拒 => Resist
+}
+
+技艺craft::变化 -up-----> 变化
+技艺craft::咒法 -up----> 咒法
+技艺craft::预言 -up---> 预言
+技艺craft::调和 -left> 调和
+技艺craft::死灵 -left> 死灵
+技艺craft::塑能 -right> 塑能
+技艺craft::惑控 -right> 惑控
+技艺craft::防护 --> 防护
+技艺craft::非法 ---> 非法
+@enduml

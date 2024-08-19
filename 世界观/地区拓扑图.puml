@@ -1,0 +1,189 @@
+﻿@startuml
+
+!define ENTITY class 
+
+skinparam linetype polyline
+skinparam ranksep 60
+skinparam nodesep 60
+hide circle
+skinparam classBackgroundColor #fff
+skinparam classBorderColor #0066ff
+ENTITY 绿洲熔炉 {}
+ENTITY 绿洲地下 {}
+ENTITY 绿洲冰层 {}
+ENTITY 绿洲海洋 {}
+ENTITY 绿洲云层 {}
+ENTITY 绿洲太空 {}
+
+
+
+绿洲海洋 -right-> 绿洲云层 
+
+
+ENTITY 潜渊星礁 {}
+ENTITY 天际星礁 {}
+ENTITY 异界星礁 {}
+ENTITY 炼熔星礁 {}
+ENTITY 磁晶星礁 {}
+绿洲云层 ----> 天际星礁
+绿洲云层 -right-> 绿洲太空
+绿洲太空 -up--> 异界星礁
+绿洲海洋 -left-> 潜渊星礁
+绿洲熔炉 -->焚铄
+绿洲熔炉 -->扭曲
+绿洲熔炉 -->腐蚀
+焚铄 --> 炼熔星礁
+扭曲 --> 炼熔星礁
+腐蚀 --> 炼熔星礁
+ENTITY 炼熔星核 {}
+炼熔星礁 --> 炼熔星核
+ENTITY 彼岸 {
+ + Innovus 伊诺瓦斯 （同盟）小镇
+ + Necrova 奈克罗瓦 （死灵）村落
+ + Trivora 特里沃拉 （角斗场）舞台
+}
+ENTITY 枢纽 {
+ + Specular 斯佩库拉（俱乐部）会所
+ + Zenomir  泽诺密 （茶会）长廊
+ + Mutalix  缪塔里 （炼金）塔
+}
+ENTITY 家园 {
+ + Fulgorus 弗尔戈（学院）圣堂
+ + Enderion 恩德里昂（财团）花园
+ + Crevocus 克瑞库斯（卫队）据点
+}
+
+
+ENTITY 外隅 {
+}
+ENTITY 泰坦遗迹 {
+}
+外隅 -left-> 泰坦遗迹
+
+绿洲地下 --> 迷雾峡谷
+
+迷雾峡谷 --> 彼岸
+迷雾峡谷 --> 家园
+绿洲地下 -left-> 堕落之喉
+绿洲地下 -right-> 幽潭湿地
+迷雾峡谷 -left-> 风暴峭壁
+风暴峭壁 --> 灰穴
+灰穴 -->新世界
+幽潭湿地 --> 外隅
+风暴峭壁 -right-> 枢纽
+彼岸 -up->新世界
+家园 -->幽潭湿地
+新世界 --> 绿洲熔炉
+
+外隅 --> 永昼冰荒
+堕落之喉 --> 风暴峭壁
+
+ENTITY 迷雾峡谷 {
+ +星辰石
+ +太阳露
+}
+ENTITY 新世界 {
+  +液态火
+  +热岩石
+}
+ENTITY 堕落之喉 {
+  +燃石球
+  +蓝燃石
+  +液态火
+}
+ENTITY 灰穴 {
+  +燃石球
+  +液态火
+}
+ENTITY 风暴峭壁 {
+  +燃石球
+  +蓝燃石
+}
+ENTITY 幽潭湿地 {
+  +蓝燃石
+  +太阳露
+}
+
+绿洲冰层 -left->迷雾之源
+迷雾之源 -up->火舌之沼
+永昼冰荒 -right-> 绿洲冰层
+绿洲冰层 -right--->宁静湛影
+火舌之沼 -up--> 磁晶星礁
+堕落之喉 -up->  火舌之沼
+宁静湛影 -up-> 绿洲海洋 
+ENTITY 迷雾之源 {}
+ENTITY 火舌之沼 {}
+ENTITY 永昼冰荒 {}
+ENTITY 宁静湛影 {}
+
+ENTITY 电晶森林 {}
+ENTITY 始源之泉 {}
+ENTITY 磁晶星核 {}
+磁晶星礁 -up-> 电晶森林
+电晶森林 -up-> 始源之泉
+始源之泉 --> 磁晶星核
+迷雾之源 -left-> 迷雾峡谷
+
+ENTITY 苗床 {}
+ENTITY 轮环 {}
+ENTITY 血蚀 {}
+ENTITY 空白 {}
+ENTITY 潜渊星核 {}
+
+潜渊星礁 -up-> 苗床
+苗床 -up-> 轮环
+轮环 -up-> 血蚀
+血蚀 -up-> 空白
+空白 --> 潜渊星核
+
+
+ENTITY 彩色泥沼 {}
+ENTITY 幻影草原 {}
+ENTITY 反射沙漠 {}
+ENTITY 全息森林 {}
+ENTITY 光影溪涧 {}
+ENTITY 天际星核 {}
+ENTITY 彩色泥沼 {}
+ENTITY 水色乡 {}
+ENTITY 涂鸦村 {}
+ENTITY 电波镇 {}
+
+
+天际星礁 --right-> 彩色泥沼
+彩色泥沼 --> 光影溪涧
+彩色泥沼 -up-> 涂鸦村
+光影溪涧 --> 幻影草原
+彩色泥沼 --> 水色乡
+光影溪涧 -up-> 水色乡
+幻影草原 ---> 电波镇
+光影溪涧 --> 全息森林
+全息森林 ---> 天际星核
+天际星礁 -right-> 反射沙漠
+反射沙漠 --> 电波镇
+
+
+异界星礁 -up-> 思维纹理
+
+
+灵魂网络 --->  思维纹理
+灵魂网络 -left--> 心智波动
+
+心智波动 -right-> 记忆痕迹
+心智波动 --> 思维纹理
+记忆痕迹 --> 思维纹理
+灵魂网络 -up-> 记忆痕迹
+ENTITY 灵魂网络 {}
+ENTITY 思维纹理 {}
+ENTITY 心智波动 {}
+ENTITY 记忆痕迹 {}
+灵魂网络 -right-> 融合螺旋
+融合螺旋 --> 集合意识
+梦境之涡 --> 集合意识
+融合螺旋 --> 梦境之涡
+ENTITY 融合螺旋 {}
+ENTITY 梦境之涡 {}
+ENTITY 集合意识 {}
+ENTITY 异界星核 {}
+异界星核 -up-> 梦境之涡
+
+@enduml

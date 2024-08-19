@@ -1,0 +1,200 @@
+﻿@startuml
+'https://plantuml.com/state-diagram
+
+
+state 格式塔{
+ state 学院College {
+    state 书本Δ {
+      
+    }
+    state 教授Professor {
+        
+    }
+    state 奥法师Elementalist {
+        
+    }
+    state 运动战 {
+        
+    }
+    state 虚无主义 {
+        
+    }
+ }
+ state 卫队Guard {
+    state 王冠λ {
+      
+    }
+    state 领主Load {
+        
+    }
+    state 巫师Warlock {
+        
+    }
+    state 防守反击 {
+        
+    }
+    state 认同障碍 {
+        
+    }
+ }
+ state 财团Consortium {
+    state 宝石α {
+      
+    }
+    state 贵族Noble {
+        
+    }
+    state 法师克星Antimage {
+        
+    }
+    state 阻碍战 {
+        
+    }
+    state 强迫症 {
+        
+    }
+ }
+}
+
+state 希望 {
+}
+state 真理 {
+}
+state 安宁 {
+}
+
+
+state 灵能合约{
+ state 茶会Teahouse {
+     state 花Θ {
+       
+     }
+     state 掌门Master {
+         
+     }
+     state 风水师Geomancer {
+         
+     }
+     state 全面攻势 {
+         
+     }
+     state 焦虑症 {
+         
+     }
+ }
+ state 实验室Lab {
+     state 齿轮Ω {
+       
+     }
+     state 工程师Engineer {
+         
+     }
+     state 炼金术士Alchemist {
+         
+     }
+     state 碉堡攻坚 {
+         
+     }
+     state 情绪障碍 {
+         
+     }
+ }
+ state 俱乐部Club {
+     state 波浪Κ {
+     }
+     state 船长Helmsman {
+         
+     }
+     state 占星师Astrologian {
+         
+     }
+     state 重装突击 {
+         
+     }
+     state 心理疾病 {
+         
+     }
+ }
+}
+
+state 秘契{
+ state 歌剧院Opera {
+     state 十字架Μ {
+     }
+     state 天使Angel {
+         
+     }
+     state 奇术师Magician {
+         
+     }
+     state 闪击战 {
+         
+     }
+     state 人格障碍 {
+         
+     }
+ }
+ state 教团Sect {
+     state 墓碑Χ {
+     }
+     state 守墓人Gravekeeper {
+         
+     }
+     state 死灵法师Necromancer {
+         
+     }
+     state 闪电战 {
+         
+     }
+     state 恋尸 {
+         
+     }
+
+ }
+ state 同盟Alliance {
+     state 枪Ζ {
+     }
+     state 特工Agent {
+         
+     }
+     state 违法者Lawbreaker {
+         
+     }
+     state 谍报战 {
+              
+     }
+     state 分裂障碍 {
+         
+     }
+
+ }
+}
+
+
+
+茶会Teahouse-->俱乐部Club
+实验室Lab -up-> 茶会Teahouse 
+俱乐部Club -up-> 实验室Lab
+
+学院College --> 财团Consortium
+卫队Guard  -up-> 学院College
+财团Consortium  -up-> 卫队Guard
+
+
+歌剧院Opera --> 同盟Alliance
+教团Sect  -up-> 歌剧院Opera
+同盟Alliance  -up-> 教团Sect
+
+
+学院College -left->  希望
+学院College  -right-> 茶会Teahouse
+茶会Teahouse -right-> 歌剧院Opera
+
+卫队Guard  -left-> 真理
+卫队Guard -right-> 实验室Lab
+实验室Lab -right> 教团Sect
+
+财团Consortium -left->安宁
+财团Consortium -right-> 俱乐部Club
+俱乐部Club -right-> 同盟Alliance
+@enduml

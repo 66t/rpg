@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apocalyptic Spells</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Press Start 2P', cursive;
+            background-color: #1b1b1b;
+            color: #00ff00;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+        }
+        table {
+            width: 100%;
+            height: 100vh;
+            background-color: #2a2a2a;
+            border-collapse: collapse;
+            border: solid 3px #0f0;
+        }
+        td {
+            border: solid 2px #0f0;
+            vertical-align: top;
+            padding: 10px;
+        }
+        .spell-name {
+            border: solid 1px #0f0;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 18px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .spell-image {
+            width: 200px;
+            height: 200px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 10px auto;
+            border: solid 1px #0f0;
+            box-shadow: 0 0 20px #000;
+        }
+        .spell-description {
+            border: solid 1px #0f0;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 16px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .header-cell {
+            border: solid 2px #0f0;
+            background-color: #000;
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 0 0 10px #00ff00;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td class="header-cell">
+            死灵
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #FFB11B"></div>
+                <div style="width: 100%;height:50%;background-color: #6F3381"></div>
+            </div>
+            <div class="spell-description">山吹/菖蒲</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/死灵法.png')"></div>
+            <div class="spell-description">死灵术</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/绷带.jpg');"></div>
+            <div class="spell-description">绷带</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/马丁.jpg');"></div>
+            <div class="spell-name">短皮靴</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/墓地.jpg');"></div>
+            <div class="spell-name">墓陵</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/死神.jpg');"></div>
+            <div class="spell-name">死神</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/诡异.png');"></div>
+            <div class="spell-name">古怪/诡异</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/哥特.png');"></div>
+            <div class="spell-name">哥特</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="header-cell">
+            咒法
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #AB3B3A"></div>
+                <div style="width: 100%;height:50%;background-color: #CA7A2C"></div>
+            </div>
+            <div class="spell-description">真朱/琥珀</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/咒法.png')"></div>
+            <div class="spell-description">恶魔魔法</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/小腿袜.png');"></div>
+            <div class="spell-description">及膝袜</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/帆布.png');"></div>
+            <div class="spell-name">帆布鞋</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/战场.png');"></div>
+            <div class="spell-name">战场</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/龙.jpg');"></div>
+            <div class="spell-name">龙姬战将</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/直爽.png');"></div>
+            <div class="spell-name">强势/直爽</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/英雄.png');"></div>
+            <div class="spell-name">英雄史诗</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="header-cell">
+            塑能
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #6F3381"></div>
+                <div style="width: 100%;height:50%;background-color: #51A8DD"></div>
+            </div>
+            <div class="spell-description">菖蒲/群青</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/物理.png')"></div>
+            <div class="spell-description">物理</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/裤袜.png');"></div>
+            <div class="spell-description">裤袜</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/长筒.png');"></div>
+            <div class="spell-name">长筒鞋</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/古遗迹.png');"></div>
+            <div class="spell-name">古遗迹</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/传承者.png');"></div>
+            <div class="spell-name">哲学家</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/认真.png');"></div>
+            <div class="spell-name">知性/认真</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/学院制服.png');"></div>
+            <div class="spell-name">学院制服</div>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td class="header-cell">
+            调和
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #080808"></div>
+                <div style="width: 100%;height:50%;background-color: #1B813E"></div>
+            </div>
+            <div class="spell-description">墨/常磐</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/阴阳.png')"></div>
+            <div class="spell-description">阴阳</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image"></div>
+            <div class="spell-description">裸</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/木屡.png');"></div>
+            <div class="spell-name">木屡</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/山水.png');"></div>
+            <div class="spell-name">山水</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/道士？巫女.png');"></div>
+            <div class="spell-name">道士？巫女</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/温和.png');"></div>
+            <div class="spell-name">温和/宁静</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/修行服.png');"></div>
+            <div class="spell-name">修行服</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="header-cell">
+            炼金
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #FAD689"></div>
+                <div style="width: 100%;height:50%;background-color: #CC543A"></div>
+            </div>
+            <div class="spell-description">浅黄/绯</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/炼金术.png')"></div>
+            <div class="spell-description">炼金术</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/吊带.png')"></div>
+            <div class="spell-description">吊带袜</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/穆勒.png');"></div>
+            <div class="spell-name">穆勒</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/工坊.png');"></div>
+            <div class="spell-name">魔女工坊</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/博学家.png');"></div>
+            <div class="spell-name">博学家</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/冷漠.png');"></div>
+            <div class="spell-name">冷漠/怕生</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/日式奇幻.png');"></div>
+            <div class="spell-name">日式奇幻</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="header-cell">
+            破法
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #33A6B8"></div>
+                <div style="width: 100%;height:50%;background-color: #FEDFE1"></div>
+            </div>
+            <div class="spell-description">浅葱/樱</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/财经.png')"></div>
+            <div class="spell-description">财经</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/斑点.png')"></div>
+            <div class="spell-description">斑点袜</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/玛丽珍.png');"></div>
+            <div class="spell-name">玛丽珍</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/舞会.png');"></div>
+            <div class="spell-name">舞会</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/操盘者.png');"></div>
+            <div class="spell-name">操盘者</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/从容.png');"></div>
+            <div class="spell-name">腹黑/从容</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/贵族礼服.png');"></div>
+            <div class="spell-name">贵族礼服</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="header-cell">
+            违法
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #C1328E"></div>
+                <div style="width: 100%;height:50%;background-color: #005CAF"></div>
+            </div>
+            <div class="spell-description">牡丹/琉璃</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/计算机.png')"></div>
+            <div class="spell-description">计算机</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/堆堆袜.png')"></div>
+            <div class="spell-description">堆堆袜</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/运动鞋.png');"></div>
+            <div class="spell-name">运动鞋</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/近未来.png');"></div>
+            <div class="spell-name">近未来</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/特工.png');"></div>
+            <div class="spell-name">特工</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/独立.jpg');"></div>
+            <div class="spell-name">独立/敏感</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/原宿.jpg');"></div>
+            <div class="spell-name">原宿</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="header-cell">
+            魔术
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #FEDFE1"></div>
+                <div style="width: 100%;height:50%;background-color: #268785"></div>
+            </div>
+            <div class="spell-description">樱/碧绿</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/心理学.png')"></div>
+            <div class="spell-description">心理学</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/脚蹬裤.png')"></div>
+            <div class="spell-description">脚蹬裤</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/芭蕾鞋.png');"></div>
+            <div class="spell-name">芭蕾</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/歌剧.png');"></div>
+            <div class="spell-name">歌剧院</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/天使.png');"></div>
+            <div class="spell-name">天使</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/伪善.png');"></div>
+            <div class="spell-name">伪善/傲慢</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/演出服.png');"></div>
+            <div class="spell-name">日系偶像服</div>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="header-cell">
+            预言
+        </td>
+        <td>
+            <div class="spell-name">color</div>
+            <div class="spell-image">
+                <div style="width: 100%;height:50%;background-color: #8F77B5"></div>
+                <div style="width: 100%;height:50%;background-color: #113285"></div>
+            </div>
+            <div class="spell-description">紫苑/绀</div>
+        </td>
+        <td>
+            <div class="spell-name">magic</div>
+            <div class="spell-image" style="background-image: url('img/占星.png')"></div>
+            <div class="spell-description">占星</div>
+        </td>
+        <td>
+            <div class="spell-name">sock</div>
+            <div class="spell-image" style="background-image: url('img/白丝.png')"></div>
+            <div class="spell-description">白丝</div>
+        </td>
+        <td>
+            <div class="spell-name">shoe</div>
+            <div class="spell-image" style="background-image: url('img/凉鞋.png');"></div>
+            <div class="spell-name">凉鞋</div>
+        </td>
+        <td>
+            <div class="spell-name">background</div>
+            <div class="spell-image" style="background-image: url('img/仙境.png');"></div>
+            <div class="spell-name">仙境</div>
+        </td>
+        <td>
+            <div class="spell-name">impression</div>
+            <div class="spell-image" style="background-image: url('img/仙灵.png');"></div>
+            <div class="spell-name">仙灵</div>
+        </td>
+        <td>
+            <div class="spell-name">temperament</div>
+            <div class="spell-image" style="background-image: url('img/天真.png');"></div>
+            <div class="spell-name">天真/神秘</div>
+        </td>
+        <td>
+            <div class="spell-name">style</div>
+            <div class="spell-image" style="background-image: url('img/洋装.png');"></div>
+            <div class="spell-name">童装</div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
