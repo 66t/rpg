@@ -8,7 +8,6 @@ Keyboard.repeatTime = 30;
 
 Keyboard.install = function() {
     const data = this.controlMapper;
-    
     data.tab = [9];
     data.start = [65];
     data.home = [83];
@@ -174,6 +173,3 @@ Mouse.get=function (key,code){
             return this.state[key][1]
     }
 }
-
-Mouse.install();
-Keyboard.install();

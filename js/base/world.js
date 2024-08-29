@@ -1,5 +1,5 @@
 function World() {throw new Error("static class");}
-
+World.ID=4444121
 World.baseMark = 64
 World.canvasWidth = 13.5 * World.baseMark
 World.canvasHeight = 9 * World.baseMark
@@ -38,13 +38,13 @@ World.initCanvas = function () {
             backgroundColor: 0x000000
         })
         PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL;
-        document.body.appendChild(this.app.view)
-        this.app.view.style.display = "none"
-        this.app.view.style.position = "absolute"
-        this.app.ticker.remove(this.app.render, this.app)
-        this.app.ticker.add(this.onTick, this)
-        this.lastUpdateTime = performance.now() - 100
-        this.elapsedTime = 100
+        document.body.appendChild(this.app.view);
+        this.app.view.style.display = "none";
+        this.app.view.style.position = "absolute";
+        this.app.ticker.remove(this.app.render, this.app);
+        this.app.ticker.add(this.onTick, this);
+        this.lastUpdateTime = performance.now() - 100;
+        this.elapsedTime = 100;
     } catch (e) {this.app = null;}
 }
 World.initFps = function () {
@@ -91,7 +91,8 @@ World.initFps = function () {
     this.xy.style.pointerEvents = "none"
 }
 World.initFont = function () {
-    // 加载所需的字体
+    FontManager.load("font","font.ttf")
+    FontManager.load("jua","jua.ttf")
 }
 World.startGame = function () {
     if(this.app) {

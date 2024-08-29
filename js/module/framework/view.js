@@ -1,15 +1,4 @@
-﻿Sprite.prototype.getTotalValue = function(propertyName) {
-    let total = this[propertyName];
-    for (let current = this; current && current.parent && current.parent[propertyName]; current = current.parent) {
-        total += current.parent[propertyName];
-    }
-    return total;
-}
-Sprite.prototype.getX = function() {return this.getTotalValue('x')}
-Sprite.prototype.getY = function() {return this.getTotalValue('y')}
-
-
-function Weaver() {
+﻿function Weaver() {
     this.initialize.apply(this, arguments);
 }
 Weaver.prototype = Object.create(Sprite.prototype);

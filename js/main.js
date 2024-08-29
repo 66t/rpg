@@ -1,9 +1,17 @@
+
+var $Db
 window.onload =  function () {
-    DataManager.loadDatabase()
-        .then(() => gameStart())
-        .catch(error => console.error('加载数据库时出错:', error));
+    DataManager.loadDatabase().then(() => gameStart())
 }
 function gameStart(){
-    Scene.run(Stage)
+    if(!Toolkit.isNwjs()) webDb()
+    Mouse.install();
+    Keyboard.install();
+    Scene.run(P1)
     World.resize()
+}
+function webDb() {
+    $Db = new Dexie('LimGame');
+    $Db.version(1).stores({[World.ID]: "index,type,[index+type],data"});
+    $Db = $Db.table(World.ID)
 }

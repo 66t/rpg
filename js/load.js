@@ -2,24 +2,17 @@ function ModuleManager() {throw new Error("static class");}
 
 ModuleManager.module =[
     {
-        "src": "base",
+        "src": "libs",
         "data": [
-            {
-                "src": "libs",
-                "data": [
-                    { "src": "crypto-js.min" },
-                    { "src": "encoding" },
-                    { "src": "localforage.min" },
-                    { "src": "pako.min" },
-                    { "src": "pixi" },
-                    { "src": "pixi-filters" },
-                    { "src": "tone" }
-                ]
-            },
-            { "src": "dataManager" },
-            { "src": "world" },
-            { "src": "scene" },
-            { "src": "keyboard" },
+            { "src": "crypto-js.min" },
+            { "src": "encoding" },
+            { "src": "localforage.min" },
+            { "src": "pako.min" },
+            { "src": "pixi" },
+            { "src": "pixi-filters" },
+            { "src": "tone" },
+            { "src": "dexie.min" },
+            { "src": "toolkit" },
         ]
     },
     {
@@ -29,9 +22,25 @@ ModuleManager.module =[
                 "src": "framework",
                 "data": [
                     { "src": "graffiti" },
-                    { "src": "toolkit" }
+                    { "src": "scene" },
+                    { "src": "view" }
+                ]
+            },
+            {
+                "src": "scene",
+                "data": [
+                    { "src": "p1" }
                 ]
             }
+        ]
+    },
+    {
+        "src": "base",
+        "data": [
+            { "src": "world" },
+            { "src": "manager" },
+            { "src": "keyboard" },
+            { "src": "identity" },
         ]
     },
     { "src": "main" }
