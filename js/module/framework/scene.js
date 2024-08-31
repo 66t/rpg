@@ -10,7 +10,7 @@ Scene.elapsedTime = 0
 Scene.snapshot=[]
 Scene.run=function (sceneClass) {
     try {
-        this.initialize()
+        if(!World.app) this.initialize()
         this.goto(sceneClass)
     }
     catch (e){}
@@ -23,12 +23,7 @@ Scene.initWorld=function (){
     World.setTick(this.update.bind(this))
     World.startGame()
 }
-Scene.updateMain=function (){
-    this.changeScene()
-    this.updateScene()
-    this.updateOperate()
-    Mouse.resetWheel()
-}
+
 Scene.update = function(deltaTime) {
     try {
         let n = this.determineRepeatNumber(deltaTime);
@@ -36,20 +31,33 @@ Scene.update = function(deltaTime) {
     } 
     catch (e) {}
 };
+Scene.updateMain=function (){
+    this.changeScene()
+    this.updateScene()
+    this.updateOperate()
+    Mouse.resetWheel()
+}
+
+Scene.changeScene=function (){
+    if(this.isSceneChanging()){
+        if(this.exiting) this.terminate()
+        this.nextScene.create()
+    }
+}
+Scene.updateScene = function() {
+    if (this.nextScene.isReady()) {
+        if(this.scene) this.scene.terminate()
+        this.scene = this.nextScene
+        this.nextScene = null
+        this.onSceneStart();
+    }
+    else if (this.nextScene) {this.nextScene.update()}
+    if (this.scene) {this.scene.update()}
+};
 Scene.updateOperate=function (){
     Keyboard.update();
     Mouse.update();
 }
-Scene.updateScene = function() {
-    if (this.scene) {
-        if (this.scene.isStarted()) this.scene.update()
-        else if (this.scene.isReady()) {
-            this.onBeforeSceneStart();
-            this.scene.start();
-            this.onSceneStart();
-        }
-    }
-};
 Scene.determineRepeatNumber=function (deltaTime){
     this.smoothDeltaTime *= 0.8
     this.smoothDeltaTime += Math.min(deltaTime, 2) * 0.2
@@ -67,31 +75,10 @@ Scene.determineRepeatNumber=function (deltaTime){
     }
 }
 Scene.terminate=function (){if (Toolkit.isNwjs()) nw.App.quit();}
-Scene.changeScene=function (){
-    if(this.isSceneChanging()){
-        if(this.scene){
-            this.scene.terminate()
-            this.onSceneTerminate()
-        }
-        this.scene = this.nextScene
-        this.nextScene = null
-        if(this.scene) this.scene.create()
-        if(this.exiting) this.terminate()
-    }
-}
-Scene.isSceneChanging = function() {return this.exiting || !!this.nextScene;};
+
+Scene.isSceneChanging = function() {return this.exiting || (!!this.nextScene&&this.nextScene.changing);};
 Scene.onSceneStart = function() {World.setStage(this.scene);}
-Scene.onSceneTerminate = function() {
-    this._previousScene = this.scene;
-    this._previousClass = this.scene.constructor;
-    World.setStage(null);
-};
-Scene.onBeforeSceneStart=function (){
-    if(this.previousScene){
-        this.previousScene.destroy()
-        this.previousScene = null
-    }
-}
+
 Scene.pop=function () {
     if(this.stack.length > 0) this.goto(this.stack.pop())
     else this.exit()
@@ -101,7 +88,7 @@ Scene.goto=function (sceneClass) {
     if(this.scene) this.scene.stop()
 }
 Scene.push=function (sceneClass) {
-    this.stack.push(this.scene.constructor)
+    if(this.scene) this.stack.push(this.scene.constructor)
     this.goto(sceneClass)
 }
 Scene.exit=function (){
@@ -124,40 +111,6 @@ Scene.destroyForBackground=function (index){
 }
 
 
-function Stage() { this.initialize(...arguments); }
-Stage.prototype = Object.create(PIXI.Container.prototype);
-Stage.prototype.constructor = Stage;
-Stage.prototype.initialize = function() {
-    PIXI.Container.call(this);
-    this.interactive = false;
-    this.started = false;
-    this.active = false;
-    this.sortableChildren = true;
-    this.back = new Sprite(Scene.snapshot[0] || new Bitmap(1, 1));
-    this.addChild(this.back);
-};
-Stage.prototype.destroy = function() {PIXI.Container.prototype.destroy.call(this, { children: true, texture: true });};
-Stage.prototype.create = function() {};
-Stage.prototype.isReady = function() {return true};
-Stage.prototype.update = function() {
-    for (const child of this.children) {
-        if (child.update) {
-            child.update();
-        }
-    }
-};
-Stage.prototype.popScene = function() {
-    Scene.pop();
-};
-Stage.prototype.start = function() {
-    this.started = true;
-    this.active = true;
-};
-Stage.prototype.stop = function() {this.active = false;};
-Stage.prototype.isActive = function() {return this.active;};
-Stage.prototype.isStarted = function() {return this.started;};
-Stage.prototype.terminate = function() {this.removeChildren();};
-
 function Bitmap() {
     this.initialize(...arguments);
 }
@@ -171,9 +124,7 @@ Bitmap.prototype.initialize = function(width, height) {
     this._smooth = true;
     this._loadListeners = [];
     this._loadingState = "none";
-    if (width > 0 && height > 0) {
-        this._createCanvas(width, height);
-    }
+    if (width > 0 && height > 0) {this._createCanvas(width, height);}
     this.fontFace = "sans-serif";
     this.fontSize = 16;
     this.fontBold = false;

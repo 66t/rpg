@@ -1,52 +1,35 @@
-﻿function Weaver() {
-    this.initialize.apply(this, arguments);
-}
-Weaver.prototype = Object.create(Sprite.prototype);
+﻿function Weaver() { this.initialize(...arguments); }
+Weaver.prototype = Object.create(PIXI.Container.prototype);
 Weaver.prototype.constructor = Weaver;
-Weaver.prototype.initialize = function (orgin) {
-    Sprite.prototype.initialize.call(this)
+Weaver.prototype.initialize = function() {
+    PIXI.Container.call(this);
+    this.interactive = false;
+    this.started = false;
+    this.active = false;
+    this.changing=true
+    this.sortableChildren = true;
+    
     this.alpha =0
-    this._orgin=orgin
-    this._load = 0
-    this._mode = 0
     
-    this._state = -1
-    this._stateStack = []
-    
+    this.load = 0
+    this.mode = 0
+    this.state = -1
+    this.stateStack = []
+
     this.install()
     this.hatch()
     this.stateStore()
 }
-
-Weaver.prototype.install = function (){
-    this._window={}
-}
-Weaver.prototype.stateStore=function (){
-    this._stateTable={}
-}
-Weaver.prototype.modifyState=function (id){
-    if(this._stateTable[id]&&this._mode!==id){
-        this._stateStack.push(this._mode)
-        this._mode=id
-        for(let name of Object.keys(this._state[id])){
-            if(this._state[id][name][0]) this._window[name].start()
-            else this._window[name].stop()
-
-            if(this._state[id][name][1]) this._window[name].show()
-            else this._window[name].hide()
-        }
-    }
-}
-Weaver.prototype.prevState=function (){
-    if(this._stateStack.length)
-        return this._stateStack.pop()
-    else
-        return -1
-}
-
-Weaver.prototype.update=function (){
-    if(this._load) return
-    switch (this._mode){
+Weaver.prototype.create = function() {
+    this.changing=false
+    this.started = true;
+    this.active = true;
+};
+Weaver.prototype.stop = function() {this.active = false;}
+Weaver.prototype.isReady = function() {return FontManager.isReady()&&ImageManager.isReady()&&this.mode}
+Weaver.prototype.update = function() {
+    if(this.load) return
+    switch (this.mode){
         case 0: this.execute();break
         case 1:
             for (const child of this.children) {
@@ -55,12 +38,26 @@ Weaver.prototype.update=function (){
                 }
             }
     }
+};
+Weaver.prototype.popScene = function() {Scene.pop();}
+Weaver.prototype.terminate = function() {
+    for(let key of Object.keys(this._window))
+        this._window[key].destroy()
+    this.removeChildren()
+    this.destroy()
+}
+Weaver.prototype.destroy = function() {
+    PIXI.Container.prototype.destroy.call(this, { children: true, texture: true });
+}
+Weaver.prototype.isActive = function() {return this.active;}
+Weaver.prototype.isStarted = function() {return this.started;}
+Weaver.prototype.install = function (){
+    this._window={}
 }
 Weaver.prototype.execute = function() {
-    this._mode =1
+    this.mode =1
     this.alpha=1
-    for(let key in this._window)
-        this._window[key].execute()
+    for(let key in this._window) this._window[key].execute()
 }
 Weaver.prototype.hatch=function (){
     for (let key in this._window){
@@ -68,20 +65,28 @@ Weaver.prototype.hatch=function (){
         for(let img in item.img)
             item.loadBit(img,item.img[img])
     }
-    this._orgin.addChild(this)
 }
-Weaver.prototype.death=function (){
-    const children=this._orgin.children
-    for(let i=0;i<children.length;i++){
-        if(children[i]===this){
-            children.splice(i,1)
-            break
+Weaver.prototype.stateStore=function (){
+    this.stateTable={}
+}
+Weaver.prototype.modifyState=function (id){
+    if(this.stateTable[id]&&this.state!==id){
+        this.stateStack.push(this.state)
+        this.state=id
+        for(let name of Object.keys(this.stateTable[id])){
+            if(this.stateTable[id][name][0]) this._window[name].start()
+            else this._window[name].stop()
+
+            if(this.stateTable[id][name][1]) this._window[name].show()
+            else this._window[name].hide()
         }
     }
-    for(let key of Object.keys(this._window)) 
-        this._window[key] .destroy()
-    this.removeChildren()
-    this.destroy()
+}
+Weaver.prototype.prevState=function (){
+    if(this.stateStack.length)
+        return this.stateStack.pop()
+    else
+        return -1
 }
 
 
@@ -90,7 +95,6 @@ function Cotton() {
 }
 Cotton.prototype = Object.create(Sprite.prototype);
 Cotton.prototype.constructor = Cotton;
-
 Cotton.prototype.initialize = function (orgin) {
     Sprite.prototype.initialize.call(this);
     this._orgin = orgin; 
@@ -114,9 +118,8 @@ Cotton.prototype.initImage = function() {this.img={}}
 Cotton.prototype.setDelay=function (value){this._delay=value}
 Cotton.prototype.stop=function (){this._stop=true}
 Cotton.prototype.start=function (){this._stop=false}
-
 Cotton.prototype.loadBit = function (key, val) {
-    this._orgin._load++
+    this._orgin.load++
     this._bit[key] = ImageManager.loadBitmap(`img/${val[0]}/`, val[1]||key)
-    this._bit[key].addLoadListener(() => { this._orgin._load-- })
+    this._bit[key].addLoadListener(() => { this._orgin.load-- })
 }

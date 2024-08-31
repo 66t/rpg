@@ -1,15 +1,17 @@
 function ModuleManager() {throw new Error("static class");}
-
 ModuleManager.module =[
     {
         "src": "libs",
         "data": [
             { "src": "crypto-js.min" },
             { "src": "encoding" },
-            { "src": "localforage.min" },
-            { "src": "pako.min" },
             { "src": "pixi" },
             { "src": "pixi-filters" },
+            { "src": "live2d.min" },
+            { "src": "live2dcubismcore" },
+            { "src": "index.min" },
+            { "src": "localforage.min" },
+            { "src": "pako.min" },
             { "src": "tone" },
             { "src": "dexie.min" },
             { "src": "toolkit" },
@@ -27,7 +29,7 @@ ModuleManager.module =[
                 ]
             },
             {
-                "src": "scene",
+                "src": "stage",
                 "data": [
                     { "src": "p1" }
                 ]
@@ -45,6 +47,7 @@ ModuleManager.module =[
     },
     { "src": "main" }
 ]
+
 ModuleManager._path = '';
 ModuleManager._scripts = [];
 ModuleManager._errorUrls = [];
@@ -72,7 +75,10 @@ ModuleManager.setup = function (modules, src) {
        }
    }
 };
-ModuleManager.load = function () {this.setup(this.module, "js");};
+ModuleManager.load = function () {
+    this.setup(this.module, "js");
+};
 
 var LIM={}
 ModuleManager.load();
+

@@ -7,7 +7,10 @@ function gameStart(){
     if(!Toolkit.isNwjs()) webDb()
     Mouse.install();
     Keyboard.install();
-    Scene.run(P1)
+    Scene.run(Weaver1)
+    // setInterval(()=>{
+    //     Scene.push(Weaver1)
+    // },1000)
     World.resize()
 }
 function webDb() {

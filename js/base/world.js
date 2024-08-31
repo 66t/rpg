@@ -1,6 +1,6 @@
 function World() {throw new Error("static class");}
 World.ID=4444121
-World.baseMark = 64
+World.baseMark = 256
 World.canvasWidth = 13.5 * World.baseMark
 World.canvasHeight = 9 * World.baseMark
 
@@ -35,7 +35,7 @@ World.initCanvas = function () {
             resolution: window.devicePixelRatio||1,
             antialias: true,
             autoStart: false,
-            backgroundColor: 0x000000
+            backgroundColor: 0x33ccbb
         })
         PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL;
         document.body.appendChild(this.app.view);
@@ -125,8 +125,9 @@ World.onTick = function (deltaTime) {
     if(this.canRender()) this.app.render()
     
     let time = performance.now()
-    let thisclockTime = time - this.lastUpdateTime
-    this.elapsedTime += (thisclockTime - this.elapsedTime) / 12
+    let clockTime = time - this.lastUpdateTime
+    
+    this.elapsedTime += (clockTime - this.elapsedTime) / 12
     this.fpsCount = 1000 / this.elapsedTime
     this.deltaTime = Math.max(0, time - this.currentTime)
     this.lastUpdateTime = time
@@ -190,18 +191,31 @@ World.resize = function () {
 }
 World.setScale = function (scale) {
     if(this.app){
-        this.scale = scale
-        let canvasStyle = this.app.view.style
-        let canvasOffsetWidth = this.app.view.offsetWidth
-        let canvasOffsetHeight = this.app.view.offsetHeight
-        this.canvas.w = canvasOffsetWidth * scale
-        this.canvas.h = canvasOffsetHeight * scale
-        this.canvas.x = (this.windowWidth - this.canvas.w) / 2
-        this.canvas.y = (this.windowHeight - this.canvas.h) / 2
-        canvasStyle.transform = `scale(${scale}, ${scale})`
-        canvasStyle.left = `calc((-${canvasOffsetWidth}px * (1 - ${scale})) / 2 + (${this.windowWidth}px - ${canvasOffsetWidth}px * ${scale}) / 2)`
-        canvasStyle.top = `calc((-${canvasOffsetHeight}px * (1 - ${scale})) / 2 + (${this.windowHeight}px - ${canvasOffsetHeight}px * ${scale}) / 2)`
-        this.cursorActi = false
+        this.scale = scale;
+
+        const canvasStyle = this.app.view.style;
+        const canvasOffsetWidth = this.app.view.offsetWidth;
+        const canvasOffsetHeight = this.app.view.offsetHeight;
+
+        const scaledWidth = canvasOffsetWidth * scale;
+        const scaledHeight = canvasOffsetHeight * scale;
+        const canvasX = (this.windowWidth - scaledWidth) / 2;
+        const canvasY = (this.windowHeight - scaledHeight) / 2;
+
+        this.canvas.w = scaledWidth;
+        this.canvas.h = scaledHeight;
+        this.canvas.x = canvasX;
+        this.canvas.y = canvasY;
+
+        const scaleStr = `scale(${scale}, ${scale})`;
+        const leftCalc = `calc((-${canvasOffsetWidth}px * (1 - ${scale})) / 2 + (${this.windowWidth}px - ${canvasOffsetWidth}px * ${scale}) / 2)`;
+        const topCalc = `calc((-${canvasOffsetHeight}px * (1 - ${scale})) / 2 + (${this.windowHeight}px - ${canvasOffsetHeight}px * ${scale}) / 2)`;
+
+        canvasStyle.transform = scaleStr;
+        canvasStyle.left = leftCalc;
+        canvasStyle.top = topCalc;
+
+        this.cursorActi = false;
     }
 }
 World.visibleChange = function () {

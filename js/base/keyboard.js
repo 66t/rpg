@@ -1,11 +1,48 @@
-﻿function Keyboard() {throw new Error("static class");}
+﻿/**
+ * 提供键盘事件处理的静态类。
+ * @constructor
+ */
+function Keyboard() { throw new Error("static class"); }
+
+/**
+ * 控制键的映射配置对象。
+ * @type {Object}
+ */
 Keyboard.controlMapper = {};
+
+/**
+ * 存储按键被按下的时间。
+ * @type {number[]}
+ */
 Keyboard.down = new Array(256).fill(0);
+
+/**
+ * 存储按键被释放的时间。
+ * @type {number[]}
+ */
 Keyboard.up = new Array(256).fill(0);
-Keyboard.state={}
+
+/**
+ * 存储每个按键的状态。
+ * @type {Object}
+ */
+Keyboard.state = {};
+
+/**
+ * 当前时间计数器。
+ * @type {number}
+ */
 Keyboard.time = 0;
+
+/**
+ * 按键重复时间间隔。
+ * @type {number}
+ */
 Keyboard.repeatTime = 30;
 
+/**
+ * 初始化键盘事件监听器和按键映射。
+ */
 Keyboard.install = function() {
     const data = this.controlMapper;
     data.tab = [9];
@@ -27,7 +64,12 @@ Keyboard.install = function() {
     document.addEventListener('keydown', this.onKeyDown.bind(this));
     document.addEventListener('keyup', this.onKeyUp.bind(this));
     window.addEventListener('blur', this.onBlur.bind(this));
-}
+};
+
+/**
+ * 处理按键按下事件。
+ * @param {KeyboardEvent} arg - 按键事件对象。
+ */
 Keyboard.onKeyDown = function(arg) {
     const keyCode = arg.keyCode;
     if (!this.down[keyCode] || this.down[keyCode] < this.up[keyCode]) {
@@ -35,6 +77,11 @@ Keyboard.onKeyDown = function(arg) {
         this.up[keyCode] = this.time - 1;
     }
 };
+
+/**
+ * 处理按键释放事件。
+ * @param {KeyboardEvent} arg - 按键事件对象。
+ */
 Keyboard.onKeyUp = function(arg) {
     const keyCode = arg.keyCode;
     if (this.down[keyCode] > this.up[keyCode]) {
@@ -42,42 +89,61 @@ Keyboard.onKeyUp = function(arg) {
         this.down[keyCode] = this.time - 1;
     }
 };
+
+/**
+ * 处理窗口失去焦点事件，重置按键状态。
+ */
 Keyboard.onBlur = function() {
     this.down = [];
     this.up = [];
 };
+
+/**
+ * 更新按键状态。
+ */
 Keyboard.update = function() {
     this.time++;
     for (let key in this.controlMapper) {
         const controlMapper = this.controlMapper[key];
         if (!controlMapper) continue;
+
         let isPress = 0;
         let isPressed = false;
         let isLongPress = false;
         let isRelease = false;
-        let dtime=this.time
+        let dtime = this.time;
+
         controlMapper.forEach(item => {
             if (this.down[item] > this.up[item]) {
                 isPressed = true;
-                if (!isPress&&this.down[item] === this.time - 1) {isPress = 1;}
-                else isPress=2
-                if(this.down[item]<dtime) dtime=this.down[item]
+                if (!isPress && this.down[item] === this.time - 1) { isPress = 1; }
+                else isPress = 2;
+                if (this.down[item] < dtime) dtime = this.down[item];
             }
             if (this.up[item] > this.down[item]) {
                 isRelease = true;
-                this.down[item] = 0; 
+                this.down[item] = 0;
                 this.up[item] = 0;
             }
         });
-        if (this.time - dtime>0&&(this.time - dtime) % this.repeatTime === 0) {
+
+        if (this.time - dtime > 0 && (this.time - dtime) % this.repeatTime === 0) {
             isLongPress = true;
         }
-        if(isPressed||isPress) isRelease=false
-        this.state[key] = [isPress===1, isPressed, isLongPress, isRelease];
+
+        if (isPressed || isPress) isRelease = false;
+        this.state[key] = [isPress === 1, isPressed, isLongPress, isRelease];
     }
 };
-Keyboard.get=function (key,code){
-    switch (code){
+
+/**
+ * 获取按键状态。
+ * @param {string} key - 按键的名称。
+ * @param {string} code - 状态类型（"long"、"trigger"、"release" 或其他）。
+ * @returns {boolean} 按键状态。
+ */
+Keyboard.get = function (key, code) {
+    switch (code) {
         case "long":
             return this.state[key][2];
         case "trigger":
@@ -87,35 +153,95 @@ Keyboard.get=function (key,code){
         default:
             return this.state[key][1];
     }
-}
+};
 
+/**
+ * 提供鼠标事件处理的静态类。
+ * @constructor
+ */
+function Mouse() { throw new Error("static class"); }
 
-function Mouse() {throw new Error("static class");}
+/**
+ * 控制鼠标按键的映射配置对象。
+ * @type {Object}
+ */
 Mouse.controlMapper = {};
-Mouse.down = [0,0,0]
-Mouse.up = [0,0,0]
-Mouse.state={}
+
+/**
+ * 存储鼠标按键被按下的时间。
+ * @type {number[]}
+ */
+Mouse.down = [0, 0, 0];
+
+/**
+ * 存储鼠标按键被释放的时间。
+ * @type {number[]}
+ */
+Mouse.up = [0, 0, 0];
+
+/**
+ * 存储每个鼠标按键的状态。
+ * @type {Object}
+ */
+Mouse.state = {};
+
+/**
+ * 当前时间计数器。
+ * @type {number}
+ */
 Mouse.time = 0;
+
+/**
+ * 鼠标重复时间间隔。
+ * @type {number}
+ */
 Mouse.repeatTime = 30;
+
+/**
+ * 鼠标光标的位置。
+ * @type {Object}
+ */
 Mouse.cursor = World.cursor;
-Mouse.wheel = {x:0,y:0,active:false};
+
+/**
+ * 鼠标滚轮的状态。
+ * @type {Object}
+ */
+Mouse.wheel = {x: 0, y: 0, active: false};
+
+/**
+ * 初始化鼠标事件监听器和按键映射。
+ */
 Mouse.install = function() {
     const data = this.controlMapper;
     data.left = [0];
-    data.whell = [1];
+    data.wheel = [1];
     data.right = [2];
     document.addEventListener('mouseup', this.onKeyUp.bind(this));
     document.addEventListener('mousedown', this.onKeyDown.bind(this));
     document.addEventListener('wheel', this.onWheel.bind(this));
-}
+};
 
+/**
+ * 处理鼠标滚轮事件。
+ * @param {WheelEvent} event - 滚轮事件对象。
+ */
 Mouse.onWheel = function(event) {
     this.wheel.x += event.deltaX;
     this.wheel.y += event.deltaY;
 };
-Mouse.resetWheel = function(event) {
-    if(Mouse.wheel.active) this.wheel = {x:0,y:0,active:false}
+
+/**
+ * 重置鼠标滚轮状态。
+ */
+Mouse.resetWheel = function() {
+    if (Mouse.wheel.active) this.wheel = {x: 0, y: 0, active: false};
 };
+
+/**
+ * 处理鼠标按下事件。
+ * @param {MouseEvent} arg - 鼠标事件对象。
+ */
 Mouse.onKeyDown = function(arg) {
     const keyCode = arg.button;
     if (!this.down[keyCode] || this.down[keyCode] < this.up[keyCode]) {
@@ -123,6 +249,11 @@ Mouse.onKeyDown = function(arg) {
         this.up[keyCode] = this.time - 1;
     }
 };
+
+/**
+ * 处理鼠标释放事件。
+ * @param {MouseEvent} arg - 鼠标事件对象。
+ */
 Mouse.onKeyUp = function(arg) {
     const keyCode = arg.button;
     if (this.down[keyCode] > this.up[keyCode]) {
@@ -130,10 +261,18 @@ Mouse.onKeyUp = function(arg) {
         this.down[keyCode] = this.time - 1;
     }
 };
+
+/**
+ * 处理窗口失去焦点事件，重置鼠标状态。
+ */
 Mouse.onBlur = function() {
-    this.down = [];
-    this.up = [];
+    this.down = [0, 0, 0];
+    this.up = [0, 0, 0];
 };
+
+/**
+ * 更新鼠标状态。
+ */
 Mouse.update = function() {
     this.time++;
     for (let key in this.controlMapper) {
@@ -148,8 +287,8 @@ Mouse.update = function() {
         controlMapper.forEach(item => {
             if (this.down[item] > this.up[item]) {
                 isPressed = true;
-                if (this.down[item] === this.time - 1) {isPress = true;}
-                if ((this.time - this.down[item]) % this.repeatTime === 0) {isLongPress = true;}
+                if (this.down[item] === this.time - 1) { isPress = true; }
+                if ((this.time - this.down[item]) % this.repeatTime === 0) { isLongPress = true; }
             }
 
             if (this.up[item] > this.down[item]) {
@@ -157,19 +296,26 @@ Mouse.update = function() {
                 this.down[item] = 0;
                 this.up[item] = 0;
             }
-        })
+        });
         this.state[key] = [isPress, isPressed, isLongPress, isRelease];
     }
 };
-Mouse.get=function (key,code){
-    switch (code){
+
+/**
+ * 获取鼠标状态。
+ * @param {string} key - 按键的名称。
+ * @param {string} code - 状态类型（"long"、"trigger"、"release" 或其他）。
+ * @returns {boolean} 鼠标状态。
+ */
+Mouse.get = function (key, code) {
+    switch (code) {
         case "long":
-            return this.state[key][2]
+            return this.state[key][2];
         case "trigger":
-            return this.state[key][0]
+            return this.state[key][0];
         case "release":
-            return this.state[key][3]
+            return this.state[key][3];
         default:
-            return this.state[key][1]
+            return this.state[key][1];
     }
-}
+};

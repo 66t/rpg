@@ -137,7 +137,7 @@ Identity.prototype.setBool = function(Id, value) {
  * 创建保存文件的内容。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
- * @param {Object} data - 要保存的数据。
+ * @param {number} type - 保存文件的类型。
  * @returns {string} 加密后的保存文件内容。
  */
 Identity.prototype.makeSaveContents = function(savefileId, type) {
@@ -159,6 +159,7 @@ Identity.prototype.makeSaveContents = function(savefileId, type) {
  * 加载保存文件的内容。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @param {string} data - 加密的保存文件内容。
  * @returns {boolean|Object} 如果保存文件加载成功则返回解析后的内容，否则返回 false。
  */
@@ -185,6 +186,7 @@ Identity.prototype.loadSaveContents = function(savefileId,type, data) {
  * 保存文件。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  */
 Identity.prototype.save = function(savefileId,type) {
     if (Toolkit.isNwjs()) {this.saveToLocalFile(savefileId,type,this.makeSaveContents(savefileId,type));} 
@@ -217,6 +219,7 @@ Identity.prototype.makeGlobalInfo = function() {
  * 加载保存文件。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @returns {boolean|Object} 如果保存文件加载成功则返回解析后的内容，否则返回 false。
  */
 Identity.prototype.load = function(savefileId,type) {
@@ -231,6 +234,7 @@ Identity.prototype.load = function(savefileId,type) {
  * 保存文件到本地文件系统。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @param {string} json - 要保存的 JSON 字符串。
  */
 Identity.prototype.saveToLocalFile = function(savefileId,type, json) {
@@ -247,6 +251,7 @@ Identity.prototype.saveToLocalFile = function(savefileId,type, json) {
  * 从本地文件系统加载文件。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @returns {string|null} 返回文件内容或 null。
  */
 Identity.prototype.loadFromLocalFile = function(savefileId,type) {
@@ -263,6 +268,7 @@ Identity.prototype.loadFromLocalFile = function(savefileId,type) {
  * 保存文件到 Web 存储。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @param {string} json - 要保存的 JSON 字符串。
  */
 Identity.prototype.saveToWebStorage = function(savefileId,type, json) {
@@ -273,6 +279,7 @@ Identity.prototype.saveToWebStorage = function(savefileId,type, json) {
  * 从 Web 存储加载文件。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @returns {string|null} 返回文件内容或 null。
  */
 Identity.prototype.loadFromWebStorage = function(savefileId, type) {
@@ -286,6 +293,7 @@ Identity.prototype.loadFromWebStorage = function(savefileId, type) {
  * 获取本地文件的路径。
  * @memberof Identity
  * @param {number} savefileId - 保存文件的标识符。
+ * @param {number} type - 保存文件的类型。
  * @returns {string} 返回文件路径。
  */
 Identity.prototype.localFilePath = function(savefileId,type) {
