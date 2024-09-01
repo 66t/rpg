@@ -10,9 +10,10 @@ DataManager.path = 'db';
 DataManager.inkPath = 'ink';
 DataManager.inkPointer = '_';
 DataManager.dataFile = [
-    { name: "$PM", src: "ParamMap" },
-    { name: "$ST", src: "SystemTable" },
-    { name: "$SV", src: "SystemVar" }
+    { name:"$Audio",src:"Audio" },
+    { name:"$PM",src:"ParamMap" },
+    { name:"$ST",src:"SystemTable" },
+    { name:"$SV",src:"SystemVar" }
 ];
 
 DataManager._globalInfo = null;

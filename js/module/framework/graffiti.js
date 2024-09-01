@@ -2,10 +2,23 @@
  * Graffiti 类，用于在画布上绘制涂鸦。
  */
 function Graffiti() {throw new Error("static class");}
+Graffiti.bitmap=null
 Graffiti.ctx=null
+
 Graffiti.contPaint=false
-Graffiti.setCtx=function (ctx){
-    Graffiti.ctx=ctx
+Graffiti.setBitmap=function (bitmap){
+    Graffiti.bitmap=bitmap
+    Graffiti.ctx=bitmap.context
+}
+Graffiti.clearCtx = function () {
+    if (Graffiti.ctx) {
+        const canvas = Graffiti.ctx.canvas;
+        Graffiti.ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+};
+Graffiti.update=function () {
+    if(Graffiti.bitmap)
+    Graffiti.bitmap._baseTexture.update()
 }
 /**
  * 设置画布的透明度。
@@ -308,3 +321,4 @@ Graffiti.location = function(point, angle, distance) {
         return [x, y];
     });
 };
+

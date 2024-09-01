@@ -8,9 +8,6 @@ function gameStart(){
     Mouse.install();
     Keyboard.install();
     Scene.run(Weaver1)
-    // setInterval(()=>{
-    //     Scene.push(Weaver1)
-    // },1000)
     World.resize()
 }
 function webDb() {

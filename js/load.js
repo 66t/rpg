@@ -25,7 +25,8 @@ ModuleManager.module =[
                 "data": [
                     { "src": "graffiti" },
                     { "src": "scene" },
-                    { "src": "view" }
+                    { "src": "view" },
+                    { "src": "view_spares" }
                 ]
             },
             {

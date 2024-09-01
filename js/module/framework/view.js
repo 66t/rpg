@@ -69,6 +69,13 @@ Weaver.prototype.hatch=function (){
 Weaver.prototype.stateStore=function (){
     this.stateTable={}
 }
+Weaver.prototype.stateAdd=function (state){
+    
+}
+Weaver.prototype.stateValue=function (state,id,value){
+    this.stateTable[state] = this.stateTable[state] || {};
+    this.stateTable[state][id]=value
+}
 Weaver.prototype.modifyState=function (id){
     if(this.stateTable[id]&&this.state!==id){
         this.stateStack.push(this.state)
@@ -123,3 +130,6 @@ Cotton.prototype.loadBit = function (key, val) {
     this._bit[key] = ImageManager.loadBitmap(`img/${val[0]}/`, val[1]||key)
     this._bit[key].addLoadListener(() => { this._orgin.load-- })
 }
+Cotton.prototype.update = function() {
+    Sprite.prototype.update.call(this);
+};

@@ -45,13 +45,15 @@ Scene.changeScene=function (){
     }
 }
 Scene.updateScene = function() {
-    if (this.nextScene.isReady()) {
-        if(this.scene) this.scene.terminate()
-        this.scene = this.nextScene
-        this.nextScene = null
-        this.onSceneStart();
+    if(this.nextScene){
+        if (this.nextScene.isReady()) {
+            if(this.scene) this.scene.terminate()
+            this.scene = this.nextScene
+            this.nextScene = null
+            this.onSceneStart();
+        }
+        this.nextScene.update()
     }
-    else if (this.nextScene) {this.nextScene.update()}
     if (this.scene) {this.scene.update()}
 };
 Scene.updateOperate=function (){
