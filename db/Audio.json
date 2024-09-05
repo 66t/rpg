@@ -1,14 +1,24 @@
 ﻿{
-  "月光":{
+  "1":{
     "type":"bgm",
-    "name":"月光",
+    "name":"アイキャッチC",
     "volume":1,
-    "rest":true,
-    "fade":[1,1],
+    "fade":[2,2],
     "rever":false,
     "rate":1,
     "loop":true,
-    "time":0,
+    "startTime":0,
+    "pan":0
+  },
+  "2":{
+    "type":"bgm",
+    "name":"月光",
+    "volume":1,
+    "fade":[2,2],
+    "rever":false,
+    "rate":1,
+    "loop":true,
+    "startTime":0,
     "pan":0
   }
 }

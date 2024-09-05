@@ -14,6 +14,8 @@ ModuleManager.module =[
             { "src": "pako.min" },
             { "src": "tone" },
             { "src": "dexie.min" },
+            { "src": "effekseer.min" },
+            { "src": "vorbisdecoder" },
             { "src": "toolkit" },
         ]
     },
@@ -44,6 +46,7 @@ ModuleManager.module =[
             { "src": "manager" },
             { "src": "keyboard" },
             { "src": "identity" },
+            { "src": "conductor" },
         ]
     },
     { "src": "main" }
