@@ -486,6 +486,9 @@ Toolkit.D = function(s) {
 Toolkit.sinNum = function(max, i) {
     return Math.sin((Math.PI / 2) / max * i);
 };
+Toolkit.inverseSinNum = function(smoothedValue) {
+    return Math.asin(smoothedValue) / (Math.PI / 2); 
+};
 /**
  * 将长度字符串转换为具体数值。
  *
