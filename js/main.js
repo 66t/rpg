@@ -12,16 +12,6 @@ function onLoad(){
     Conductor.update()
     Scene.run(Weaver1)
     World.resize()
-    
-    
-    
-    Conductor.play("2")
-    setTimeout(function (){
-        Conductor.play("1")
-        setTimeout(function (){
-            Conductor.play("2")
-        },4000)
-    },18000)
 }
 function onError() {}
 function webDb() {
