@@ -301,9 +301,10 @@ Mouse.update = function() {
     }
 };
 
+
 /**
  * 获取鼠标状态。
- * @param {string} key - 按键的名称。
+ * @param {number} key - 按键的名称。
  * @param {string} code - 状态类型（"long"、"trigger"、"release" 或其他）。
  * @returns {boolean} 鼠标状态。
  */

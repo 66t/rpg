@@ -6,7 +6,7 @@ Rhythm.prototype.constructor = Rhythm;
 Rhythm.prototype.initialize = function (val,stress=0,limit=0,control=0) {
     this.value=val
     this.arr=[]
-    
+    this.stop=false
     this.strain=0
     this.stress=stress
     this.limit=limit
@@ -35,9 +35,13 @@ Rhythm.prototype.addWave=function (opera,waveforms="sin",v1,v2,digit=false,perio
 }
 Rhythm.prototype.update = function () {
     this.updateStress() 
+    let stop=this.stop
     for (let item of this.arr) {
-        item.count++;
+        if(this.stop) item.count--
+        else item.count++;
+        if(item.count%(item.time*(4/item.divi))>0) stop=false
     }
+    return stop
 };
 Rhythm.prototype.updateStress=function (){
     this.strain += (this.opera % 2 ? -1 : 1) * this.stress;
@@ -131,3 +135,135 @@ Runflow.prototype.install = function (work) {
     }
     return false
 }
+
+
+
+
+function Handler() {
+    this.initialize.apply(this, arguments);
+}
+Handler.prototype = Object.create(Handler.prototype)
+Handler.prototype.constructor = Handler
+Handler.prototype.initialize = function (origin, handler) {
+    this._orgin = origin;
+    this.handler = handler; 
+    this.create();
+}
+Handler.prototype.create = function () {
+    this.alpha = false;
+    this.touch = [-1, -1, -1, -1, -1, -1];
+    this.data = [0, -1, 0, -1, 0, -1, 0];
+    this.activa = true;
+};
+Handler.prototype.update = function (x, y, cancelled, pressed, item, expel) {
+    if (!this.activa && !expel.has(this.handler)) {
+        this.activa = true;
+        return this.update(x, y, cancelled, pressed, item, expel);
+    }
+    if (this.activa) {
+        const itemWidth = item.width * item.scale.x;
+        const itemHeight = item.height * item.scale.y;
+        const itemX = item.getX();
+        const itemY = item.getY();
+        const alphaPixel = this.alpha || item.bitmap.getAlphaPixel(
+            (x - (itemX - itemWidth * 0.5)) / item.scale.x,
+            (y - (itemY - itemHeight * 0.5)) / item.scale.y
+        );
+        this.touch = [
+            x - (itemX - itemWidth * 0.5),
+            y - (itemY - itemHeight * 0.5),
+            this.touch[2] > -1 ? this.touch[4] : x,
+            this.touch[3] > -1 ? this.touch[5] : y,
+            x,
+            y
+        ];
+        if (expel.has(this.handler)) {
+            this.create();
+        } else {
+            if (cancelled) {
+                this.data[5] = this.data[0] + 1;
+            }
+            const insideItem = alphaPixel > 0 &&
+                this.touch[0] >= 0 && this.touch[0] <= itemWidth &&
+                this.touch[1] >= 0 && this.touch[1] <= itemHeight;
+            if (pressed) {
+                if (this.data[4] > this.data[3]) {
+                    this.data[3] = this.data[0] + 1;
+                    if (insideItem) this.data[6] = 1;
+                }
+            } else {
+                if (this.data[3] > this.data[4]) {
+                    this.data[4] = this.data[0] + 1;
+                }
+                if (this.data[6]) this.data[6] = this.data[6] === 1 ? 2 : 0;
+            }
+            if (insideItem) {
+                if (this.data[2] > this.data[1]) {
+                    this.data[1] = this.data[0] + 1;
+                }
+            } else {
+                if (this.data[1] > this.data[2]) {
+                    this.data[2] = this.data[0] + 1;
+                }
+            }
+        }
+        this.data[0]++;
+        return { data: this.data, touch: this.touch };
+    }   
+    return false
+};
+Handler.prototype.updateTouchState = function (x, y, item) {
+    const itemWidth = item.width * item.scale.x;
+    const itemHeight = item.height * item.scale.y;
+    const itemX = item.getX();
+    const itemY = item.getY();
+
+    this.touch = [
+        x - (itemX - itemWidth * 0.5),
+        y - (itemY - itemHeight * 0.5),
+        this.touch[2] > -1 ? this.touch[4] : x,
+        this.touch[3] > -1 ? this.touch[5] : y,
+        x,
+        y
+    ];
+};
+Handler.prototype.isInsideItem = function (x, y, item) {
+    const itemWidth = item.width * item.scale.x;
+    const itemHeight = item.height * item.scale.y;
+    const itemX = item.getX();
+    const itemY = item.getY();
+    const alphaPixel = this.alpha || item.bitmap.getAlphaPixel((x - (itemX - itemWidth * 0.5)) / item.scale.x,(y - (itemY - itemHeight * 0.5)) / item.scale.y);
+    return alphaPixel > 0 &&
+        this.touch[0] >= 0 && this.touch[0] <= itemWidth &&
+        this.touch[1] >= 0 && this.touch[1] <= itemHeight;
+};
+Handler.prototype.handleCancel = function (cancelled) {
+    if (cancelled) {
+        this.data[5] = this.data[0] + 1; // 标记为已取消
+    }
+};
+Handler.prototype.handlePressed = function (insideItem) {
+    if (this.data[4] > this.data[3]) {
+        this.data[3] = this.data[0] + 1;
+        if (insideItem) this.data[6] = 1; // 如果在项目内部，标记为 1
+    }
+};
+Handler.prototype.handleReleased = function () {
+    if (this.data[3] > this.data[4]) {
+        this.data[4] = this.data[0] + 1; // 更新释放状态
+    }
+    if (this.data[6]) {
+        this.data[6] = (this.data[6] === 1) ? 2 : 0; // 切换状态
+    }
+};
+Handler.prototype.updateItemState = function (insideItem) {
+    if (insideItem) {
+        if (this.data[2] > this.data[1]) {
+            this.data[1] = this.data[0] + 1; // 更新内部状态
+        }
+    } else {
+        if (this.data[1] > this.data[2]) {
+            this.data[2] = this.data[0] + 1; // 更新外部状态
+        }
+    }
+};
