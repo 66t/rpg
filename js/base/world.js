@@ -181,6 +181,11 @@ World.onKeyDown = function (event) {
             case 116:
                 if(Toolkit.isNwjs()) chrome.runtime.reload()
                 break
+            case 118:
+                let w=800;
+                let h=800;
+                window.open('edi/index.html','','width='+w+',height='+h+',top=0,left=0');
+                break
         }
 }
 World.resize = function () {
@@ -192,7 +197,6 @@ World.resize = function () {
 World.setScale = function (scale) {
     if(this.app){
         this.scale = scale;
-
         const canvasStyle = this.app.view.style;
         const canvasOffsetWidth = this.app.view.offsetWidth;
         const canvasOffsetHeight = this.app.view.offsetHeight;

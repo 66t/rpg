@@ -7,9 +7,6 @@ ModuleManager.module =[
             { "src": "encoding" },
             { "src": "pixi" },
             { "src": "pixi-filters" },
-            { "src": "live2d.min" },
-            { "src": "live2dcubismcore" },
-            { "src": "index.min" },
             { "src": "localforage.min" },
             { "src": "pako.min" },
             { "src": "tone" },
@@ -17,6 +14,7 @@ ModuleManager.module =[
             { "src": "effekseer.min" },
             { "src": "vorbisdecoder" },
             { "src": "toolkit" },
+            { "src": "vue.min" },
         ]
     },
     {
@@ -27,8 +25,7 @@ ModuleManager.module =[
                 "data": [
                     { "src": "graffiti" },
                     { "src": "scene" },
-                    { "src": "view" },
-                    { "src": "view_spares" }
+                    { "src": "view" }
                 ]
             },
             {
@@ -85,4 +82,6 @@ ModuleManager.load = function () {
 
 var LIM={}
 ModuleManager.load();
-
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+});

@@ -25,4 +25,7 @@ body{
     background-color:#000;
     position: relative;text-align: center;
     will-change: transform;
+    user-select: none;
 }
+
+

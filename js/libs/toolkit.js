@@ -1127,6 +1127,46 @@ Toolkit.extendRay = function(a, b, d) {
     };
     return c;
 }
+
+/**
+ * 检测两个矩形是否发生碰撞。
+ *
+ * @param {{x: number, y: number, width: number, height: number}} rect1 - 第一个矩形。
+ * @param {{x: number, y: number, width: number, height: number}} rect2 - 第二个矩形。
+ * @returns {boolean} 是否发生碰撞。
+ */
+Toolkit.checkRectCollision = function(rect1, rect2) {
+    return !(rect1.x + rect1.width < rect2.x ||
+        rect1.x > rect2.x + rect2.width ||
+        rect1.y + rect1.height < rect2.y ||
+        rect1.y > rect2.y + rect2.height);
+};
+
+/**
+ * 检测两个圆是否发生碰撞。
+ *
+ * @param {{x: number, y: number, radius: number}} circle1 - 第一个圆。
+ * @param {{x: number, y: number, radius: number}} circle2 - 第二个圆。
+ * @returns {boolean} 是否发生碰撞。
+ */
+Toolkit.checkCircleCollision = function(circle1, circle2) {
+    const dx = circle1.x - circle2.x;
+    const dy = circle1.y - circle2.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance < (circle1.radius + circle2.radius);
+};
+
+/**
+ * 检测点是否在矩形内部。
+ *
+ * @param {{x: number, y: number}} point - 点坐标。
+ * @param {{x: number, y: number, width: number, height: number}} rect - 矩形。
+ * @returns {boolean} 点是否在矩形内部。
+ */
+Toolkit.isPointInRect = function(point, rect) {
+    return point.x >= rect.x && point.x <= rect.x + rect.width &&
+        point.y >= rect.y && point.y <= rect.y + rect.height;
+};
 /**
  * 将点数组中的点绕着控制点旋转指定的角度。
  *

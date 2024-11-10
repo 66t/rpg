@@ -1,116 +1,171 @@
-﻿function Scene() {throw new Error("static class");}
-Scene.scene = null
-Scene.nextScene = null
-Scene.stack = []
-Scene.exiting = false
-Scene.previousScene = null
-Scene.previousClass = null
-Scene.smoothDeltaTime = 1
-Scene.elapsedTime = 0
-Scene.snapshot=[]
-Scene.run=function (sceneClass) {
-    try {
-        if(!World.app) this.initialize()
-        this.goto(sceneClass)
-    }
-    catch (e){}
-}
-Scene.initialize=function (){
-    this.initWorld()
-}
-Scene.initWorld=function (){
-    World.initialize()
-    World.setTick(this.update.bind(this))
-    World.startGame()
+﻿// 定义场景管理器的静态类
+function Scene() {
+    // 抛出异常，防止此类被实例化
+    throw new Error("static class");
 }
 
+// 初始化静态属性
+Scene.scene = null; // 当前场景
+Scene.nextScene = null; // 下一个场景
+Scene.stack = []; // 场景堆栈，用于记录场景切换历史
+Scene.exiting = false; // 是否正在退出场景
+Scene.previousScene = null; // 前一个场景
+Scene.previousClass = null; // 前一个场景类
+Scene.smoothDeltaTime = 1; // 平滑的时间增量，用于帧率控制
+Scene.elapsedTime = 0; // 累计时间
+Scene.snapshot = []; // 场景的截图，用于背景或其他用途
+
+// 运行指定的场景类
+Scene.run = function(sceneClass) {
+    try {
+        // 如果世界对象还未初始化，先初始化世界
+        if (!World.app) this.initialize();
+        // 进入指定的场景
+        this.goto(sceneClass);
+    } catch (e) {
+        // 忽略异常
+    }
+};
+
+// 初始化世界
+Scene.initialize = function() {
+    this.initWorld();
+};
+
+// 初始化世界和设置世界的更新函数
+Scene.initWorld = function() {
+    World.initialize();
+    World.setTick(this.update.bind(this)); // 将 Scene.update 绑定到世界的 tick 更新函数
+    World.startGame(); // 开始游戏主循环
+};
+
+// 场景的更新函数，每帧调用
 Scene.update = function(deltaTime) {
     try {
+        // 根据时间增量，确定需要重复更新的次数
         let n = this.determineRepeatNumber(deltaTime);
-        for (let i = 0; i < n; i++) this.updateMain(); 
-    } 
-    catch (e) {}
+        for (let i = 0; i < n; i++) this.updateMain(); // 更新主循环
+    } catch (e) {
+        // 忽略异常
+    }
 };
-Scene.updateMain=function (){
-    this.changeScene()
-    this.updateScene()
-    this.updateOperate()
-    Mouse.resetWheel()
-}
 
-Scene.changeScene=function (){
-    if(this.isSceneChanging()){
-        if(this.exiting) this.terminate()
-        this.nextScene.create()
-    }
-}
-Scene.updateScene = function() {
-    if(this.nextScene){
-        if (this.nextScene.isReady()) {
-            if(this.scene) this.scene.terminate()
-            this.scene = this.nextScene
-            this.nextScene = null
-            this.onSceneStart();
-        }
-        this.nextScene.update()
-    }
-    if (this.scene) {this.scene.update()}
+// 主循环更新函数，更新场景、操作和鼠标
+Scene.updateMain = function() {
+    this.changeScene(); // 处理场景切换
+    this.updateScene(); // 更新当前场景
+    this.updateOperate(); // 更新操作输入（键盘和鼠标）
+    Mouse.resetWheel(); // 重置鼠标滚轮状态
 };
-Scene.updateOperate=function (){
-    Keyboard.update();
-    Mouse.update();
-}
-Scene.determineRepeatNumber=function (deltaTime){
-    this.smoothDeltaTime *= 0.8
-    this.smoothDeltaTime += Math.min(deltaTime, 2) * 0.2
-    if(this.smoothDeltaTime >= 0.9){
-        this.elapsedTime = 0
-        return  Math.round(this.smoothDeltaTime)
+
+// 场景切换处理
+Scene.changeScene = function() {
+    if (this.isSceneChanging()) { // 检查是否需要切换场景
+        if (this.exiting) this.terminate(); // 如果正在退出，则终止当前场景
+        this.nextScene.create(); // 创建下一个场景
     }
-    else {
+};
+
+// 更新当前场景
+Scene.updateScene = function() {
+    if (this.nextScene) {
+        // 如果下一个场景已准备好，则切换场景
+        if (this.nextScene.isReady()) {
+            if (this.scene) this.scene.terminate(); // 终止当前场景
+            this.scene = this.nextScene; // 切换到下一个场景
+            this.nextScene = null;
+            this.onSceneStart(); // 场景开始时的处理
+        }
+        this.nextScene.update(); // 更新下一个场景
+    }
+    if (this.scene) {
+        this.scene.update(); // 更新当前场景
+    }
+};
+
+// 更新操作输入（键盘和鼠标）
+Scene.updateOperate = function() {
+    Keyboard.update(); // 更新键盘状态
+    Mouse.update(); // 更新鼠标状态
+};
+
+// 确定更新重复次数，基于时间增量
+Scene.determineRepeatNumber = function(deltaTime) {
+    this.smoothDeltaTime *= 0.8; // 平滑处理时间增量
+    this.smoothDeltaTime += Math.min(deltaTime, 2) * 0.2; // 限制最大时间增量
+    if (this.smoothDeltaTime >= 0.9) {
+        this.elapsedTime = 0; // 重置累计时间
+        return Math.round(this.smoothDeltaTime); // 返回需要更新的次数
+    } else {
         this.elapsedTime += deltaTime;
         if (this.elapsedTime >= 1) {
             this.elapsedTime -= 1;
-            return 1;
+            return 1; // 返回 1 表示需要更新一次
         }
-        return 0;
+        return 0; // 不需要更新
     }
-}
-Scene.terminate=function (){if (Toolkit.isNwjs()) nw.App.quit();}
-
-Scene.isSceneChanging = function() {return this.exiting || (!!this.nextScene&&this.nextScene.changing);};
-Scene.onSceneStart = function() {World.setStage(this.scene);}
-
-Scene.pop=function () {
-    if(this.stack.length > 0) this.goto(this.stack.pop())
-    else this.exit()
-}
-Scene.goto=function (sceneClass) {
-    if(sceneClass) this.nextScene = new sceneClass()
-    if(this.scene) this.scene.stop()
-}
-Scene.push=function (sceneClass) {
-    if(this.scene) this.stack.push(this.scene.constructor)
-    this.goto(sceneClass)
-}
-Scene.exit=function (){
-    this.goto(null)
-    this.exiting = true
-}
-Scene.stop=function (){
-    World.stopGame()
-}
-Scene.clearStack=function (){
-    this.stack = []
-}
-Scene.snapForBackground = function(index) {
-    if (this.snapshot[index]) this.snapshot[index].destroy();
-    this.snapshot[index] = Bitmap.snap(this.scene);
 };
-Scene.destroyForBackground=function (index){
-    if (this.snapshot[index]) this.snapshot[index].destroy();
-    this.snapshot[index]=null
-}
+
+// 终止场景处理，退出应用
+Scene.terminate = function() {
+    if (Toolkit.isNwjs()) nw.App.quit(); // 如果运行在 NW.js 环境中，退出应用
+};
+
+// 判断是否正在切换场景
+Scene.isSceneChanging = function() {
+    return this.exiting || (!!this.nextScene && this.nextScene.changing);
+};
+
+// 当场景开始时的处理
+Scene.onSceneStart = function() {
+    World.setStage(this.scene); // 设置世界舞台为当前场景
+};
+
+// 弹出场景堆栈并返回上一个场景
+Scene.pop = function() {
+    if (this.stack.length > 0) this.goto(this.stack.pop());
+    else this.exit(); // 如果堆栈为空，则退出
+};
+
+// 进入指定的场景类
+Scene.goto = function(sceneClass) {
+    if (sceneClass) this.nextScene = new sceneClass(); // 创建新的场景
+    if (this.scene) this.scene.stop(); // 停止当前场景
+};
+
+// 将当前场景压入堆栈并进入新场景
+Scene.push = function(sceneClass) {
+    if (this.scene) this.stack.push(this.scene.constructor); // 将当前场景类压入堆栈
+    this.goto(sceneClass); // 进入新场景
+};
+
+// 退出场景，进入空场景
+Scene.exit = function() {
+    this.goto(null);
+    this.exiting = true; // 标记正在退出
+};
+
+// 停止当前场景的处理
+Scene.stop = function() {
+    World.stopGame(); // 停止游戏主循环
+};
+
+// 清空场景堆栈
+Scene.clearStack = function() {
+    this.stack = [];
+};
+
+// 为背景截图
+Scene.snapForBackground = function(index) {
+    if (this.snapshot[index]) this.snapshot[index].destroy(); // 如果已有截图，先销毁
+    this.snapshot[index] = Bitmap.snap(this.scene); // 截取当前场景
+};
+
+// 销毁指定的背景截图
+Scene.destroyForBackground = function(index) {
+    if (this.snapshot[index]) this.snapshot[index].destroy(); // 销毁截图
+    this.snapshot[index] = null;
+};
 
 
 function Bitmap() {
@@ -126,7 +181,10 @@ Bitmap.prototype.initialize = function(width, height) {
     this._smooth = true;
     this._loadListeners = [];
     this._loadingState = "none";
-    if (width > 0 && height > 0) {this._createCanvas(width, height);}
+    this._alphaPixelCache = {}; 
+    if (width > 0 && height > 0) {
+        this._createCanvas(width, height);
+    }
     this.fontFace = "sans-serif";
     this.fontSize = 16;
     this.fontBold = false;
@@ -265,6 +323,7 @@ Bitmap.prototype.blt = function(source, sx, sy, sw, sh, dx, dy, dw, dh) {
         this.context.globalCompositeOperation = "source-over";
         this.context.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
         this._baseTexture.update();
+        this._clearAlphaPixelCache();
     } catch (e) {
         //
     }
@@ -278,18 +337,30 @@ Bitmap.prototype.getPixel = function(x, y) {
     return result;
 };
 Bitmap.prototype.getAlphaPixel = function(x, y) {
+    const cacheKey = `${x},${y}`;
+    if (this._alphaPixelCache[cacheKey] !== undefined) {
+        return this._alphaPixelCache[cacheKey];
+    }
     const data = this.context.getImageData(x, y, 1, 1).data;
-    return data[3];
+    const alpha = data[3];
+    this._alphaPixelCache[cacheKey] = alpha;
+    return alpha;
+};
+Bitmap.prototype._clearAlphaPixelCache = function() {
+    this._alphaPixelCache = {}; 
 };
 Bitmap.prototype.clearRect = function(x, y, width, height) {
     this.context.clearRect(x, y, width, height);
     this._baseTexture.update();
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.clear = function() {
     this.clearRect(0, 0, this.width, this.height);
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.fillAll = function(color) {
     this.fillRect(0, 0, this.width, this.height, color);
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.fillRect = function(x, y, width, height, color) {
     const context = this.context;
@@ -298,6 +369,7 @@ Bitmap.prototype.fillRect = function(x, y, width, height, color) {
     context.fillRect(x, y, width, height);
     context.restore();
     this._baseTexture.update();
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.strokeRect = function(x, y, width, height, color,lineWidth) {
     const context = this.context;
@@ -307,6 +379,7 @@ Bitmap.prototype.strokeRect = function(x, y, width, height, color,lineWidth) {
     context.strokeRect(x, y, width, height);
     context.restore();
     this._baseTexture.update();
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.drawCircle = function(x, y, radius, color,borderColor,lineWidth) {
     const context = this.context;
@@ -320,6 +393,7 @@ Bitmap.prototype.drawCircle = function(x, y, radius, color,borderColor,lineWidth
     if(lineWidth) context.stroke();
     context.restore();
     this._baseTexture.update();
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.drawText = function(text, x, y, maxWidth, lineHeight, align) {
     const context = this.context;
@@ -343,6 +417,7 @@ Bitmap.prototype.drawText = function(text, x, y, maxWidth, lineHeight, align) {
     this._drawTextBody(text, tx, ty, maxWidth);
     context.restore();
     this._baseTexture.update();
+    this._clearAlphaPixelCache();
 };
 Bitmap.prototype.measureTextWidth = function(text) {
     const context = this.context;

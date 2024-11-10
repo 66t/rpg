@@ -1,24 +1,30 @@
 ﻿{
-  "1":{
-    "type":"bgm",
-    "name":"アイキャッチC",
-    "volume":1,
-    "fade":[5,5],
-    "rever":false,
-    "rate":1,
-    "loop":false,
-    "startTime":0,
-    "pan":0
+  "1": {
+    "type": "bgm",
+    "name": "アイキャッチC",
+    "volume": 1,
+    "fade": [
+      5,
+      5
+    ],
+    "rever": false,
+    "rate": 1,
+    "loop": false,
+    "startTime": 0,
+    "pan": 0
   },
-  "2":{
-    "type":"bgm",
-    "name":"月光",
-    "volume":1,
-    "fade":[5,2],
-    "rever":false,
-    "rate":1,
-    "loop":true,
-    "startTime":0,
-    "pan":0
+  "2": {
+    "type": "bgm",
+    "name": "月光",
+    "volume": 1,
+    "fade": [
+      5,
+      2
+    ],
+    "rever": false,
+    "rate": 1,
+    "loop": true,
+    "startTime": 0,
+    "pan": 0
   }
 }

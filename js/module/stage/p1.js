@@ -44,6 +44,11 @@ CottonA.prototype.initImage = function() {
     }
 }
 CottonA.prototype.initAdorn=function (){
+    for (let key in Toolkit) {
+        if (typeof Toolkit[key] === 'function') {
+            console.log(key);
+        }
+    }
     this.setAdorn("图像","图像","",{},"100%","100%",0,0,0,1,0.5,20)
 }
 

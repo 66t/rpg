@@ -48,11 +48,11 @@ Keyboard.install = function() {
     data.tab = [9];
     data.start = [65];
     data.home = [83];
-    data.select = [33];
-    data.back = [34];
+    data.back = [8];
     data.a = [13, 32, 90];
     data.b = [88, 27, 45];
-    data.x = [17, 18];
+    data.select = [17];
+    data.x = [18];
     data.y = [16];
     data.up = [38, 104];
     data.down = [40, 98];
@@ -145,13 +145,13 @@ Keyboard.update = function() {
 Keyboard.get = function (key, code) {
     switch (code) {
         case "long":
-            return this.state[key][2];
+            return this.state[key]?this.state[key][2]:false;
         case "trigger":
-            return this.state[key][0];
+            return this.state[key]?this.state[key][0]:false;
         case "release":
-            return this.state[key][3];
+            return this.state[key]?this.state[key][3]:false;
         default:
-            return this.state[key][1];
+            return this.state[key]?this.state[key][1]:false;
     }
 };
 
@@ -207,16 +207,16 @@ Mouse.cursor = World.cursor;
  * 鼠标滚轮的状态。
  * @type {Object}
  */
-Mouse.wheel = {x: 0, y: 0, active: false};
+Mouse.wheel = {y: 0, state: 0};
 
 /**
  * 初始化鼠标事件监听器和按键映射。
  */
 Mouse.install = function() {
     const data = this.controlMapper;
-    data.left = [0];
+    data.L = [0];
+    data.R = [2];
     data.wheel = [1];
-    data.right = [2];
     document.addEventListener('mouseup', this.onKeyUp.bind(this));
     document.addEventListener('mousedown', this.onKeyDown.bind(this));
     document.addEventListener('wheel', this.onWheel.bind(this));
@@ -227,7 +227,6 @@ Mouse.install = function() {
  * @param {WheelEvent} event - 滚轮事件对象。
  */
 Mouse.onWheel = function(event) {
-    this.wheel.x += event.deltaX;
     this.wheel.y += event.deltaY;
 };
 
@@ -235,7 +234,7 @@ Mouse.onWheel = function(event) {
  * 重置鼠标滚轮状态。
  */
 Mouse.resetWheel = function() {
-    if (Mouse.wheel.active) this.wheel = {x: 0, y: 0, active: false};
+    if (Mouse.wheel.active) this.wheel = {y: 0, state: 0};
 };
 
 /**
@@ -299,6 +298,8 @@ Mouse.update = function() {
         });
         this.state[key] = [isPress, isPressed, isLongPress, isRelease];
     }
+    Mouse.wheel.state = Mouse.wheel.active === 0 ? Math.sign(Mouse.wheel.y) : 0;
+    Mouse.wheel.y=0
 };
 
 
@@ -311,12 +312,12 @@ Mouse.update = function() {
 Mouse.get = function (key, code) {
     switch (code) {
         case "long":
-            return this.state[key][2];
+            return this.state[key]?this.state[key][2]:false;
         case "trigger":
-            return this.state[key][0];
+            return this.state[key]?this.state[key][0]:false;
         case "release":
-            return this.state[key][3];
+            return this.state[key]?this.state[key][3]:false;
         default:
-            return this.state[key][1];
+            return this.state[key]?this.state[key][1]:false;
     }
 };
