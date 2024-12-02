@@ -276,6 +276,7 @@ Cotton.prototype.setNineTile = function (key, source, w, h) {
     this.addBit(key, bit);
 };
 Cotton.prototype.setData=function (key,k,v){this.adorn.setData(key,k,v)}
+Cotton.prototype.getData=function (key,k){return this.adorn.getData(key,k)}
 Cotton.prototype.setAdorn=function (key,bit,handler,data,w,h,x,y,cover,adso,alpha,rota){
     this.adorn.set(key,bit,handler,data,w,h,x,y,cover,adso,alpha,rota)
 }
@@ -489,6 +490,9 @@ Adorn.prototype.set = function (
     this.connectBit(bit, key); // 将元素关联到 bit
     if (handler) this.addHandler(key, handler); // 如果有触摸事件处理器，进行绑定
     this.order.push(key); // 将 key 加入列表
+}
+Adorn.prototype.getData=function (key,k){
+    if(this.data[key]) return this.data[key][k]
 }
 Adorn.prototype.setData=function (key,k,v){
     if(this.data[key]) this.data[key].data[k]=v
